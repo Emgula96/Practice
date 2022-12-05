@@ -6,9 +6,13 @@ const InputField = () => {
     const [word, setWord] = useState('')
     let wordToCount = word
     console.log(word)
-
+    bank = {}
     const counterFunction = (word) => {
-        
+        for (let i = 0; i < word.length; i++){
+            const ch = string[i];
+            bank[ch] = 0
+        }
+        bank[ch]++
     }
     
     return (
