@@ -15,8 +15,10 @@ const searchUsers = async () => {
     });
     const res = await response.json()
     console.log(res)
-    setSingleUser(res)
-    setFoundUser(true);
+    if (res.id) {
+        setSingleUser(res)
+        setFoundUser(true);
+    }
     if (res.message === 'Not Found') {
         toast.error("USER NOT FOUND", {
             position: "top-center",
@@ -28,7 +30,7 @@ const searchUsers = async () => {
             progress: undefined,
             theme: "light",
         });
-        }
+    }
     };
     
     const handleSubmit = (e) => {
