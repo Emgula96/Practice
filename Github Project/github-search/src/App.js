@@ -13,18 +13,10 @@ const App =() => {
   const [showRepos, setShowrepos] = useState(false);
   const [page, setPage] = useState(1)
 
-
-  useEffect(() => {
-    console.log('useEffect tirggered')
-    setRepos([])
-    setPage(1)
-  }, [singleUser, username])
-  
-
   return (
     <>
       <div id="top-container">
-        <SearchBar setSingleUser={setSingleUser} setusername={setusername} setFoundUser={setFoundUser} username={username} setShowrepos={setShowrepos} />
+        <SearchBar setPage={setPage} setRepos={setRepos} setSingleUser={setSingleUser} setusername={setusername} setFoundUser={setFoundUser} username={username} setShowrepos={setShowrepos} />
         {foundUser && <Profile setPage={setPage} page={page} setShowrepos={setShowrepos} showRepos={showRepos} foundUser={foundUser} singleUser={singleUser} setRepos={setRepos} repos={repos} username={username} />}
       </div>
       <div className="results-container">

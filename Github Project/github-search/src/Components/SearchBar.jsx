@@ -3,7 +3,7 @@ import "../CSS/App.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const SearchBar = ({username,setShowrepos,setFoundUser, setSingleUser, setusername}) => {
+const SearchBar = ({setRepos,setPage,username,setShowrepos,setFoundUser, setSingleUser, setusername}) => {
 const searchUsers = async () => {
     const headers = {
       Authorization: `Token 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`,
@@ -35,6 +35,8 @@ const searchUsers = async () => {
     
     const handleSubmit = (e) => {
         e.preventDefault();
+        setRepos([])
+        setPage(1)
         searchUsers();
         setShowrepos(false);
     };
