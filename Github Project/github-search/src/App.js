@@ -15,9 +15,10 @@ const App =() => {
 
 
   useEffect(() => {
+    console.log('useEffect tirggered')
     setRepos([])
     setPage(1)
-  }, [singleUser])
+  }, [singleUser, username])
   
 
   return (

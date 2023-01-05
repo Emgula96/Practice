@@ -14,7 +14,7 @@ body{
     height: 100%;
 }
 #repoCard{
-    height: 280px;
+    min-height: 280px;
 }
 #repoCard:hover{
     transform: scale(1.05);
@@ -26,8 +26,13 @@ body{
 #cardItem{
     margin: 15px 0px 15px 7px;
 }
+#bubbles-container{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
 #cardItem-bubbles{
-    margin:3px 3px
+    margin:3px 3px;
 }
 #articleContainer{
     height: 100%;
@@ -50,4 +55,7 @@ body{
     span{
         margin-top: 10px
     }
+    #cardItem-bubbles{
+    font-size: 12px;
+}
 }

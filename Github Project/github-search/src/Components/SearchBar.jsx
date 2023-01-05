@@ -1,23 +1,23 @@
 import React from 'react'
 import "../CSS/App.css";
-import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const SearchBar = ({username,setShowrepos,setFoundUser, setSingleUser, setusername}) => {
-const searchUsers = () => {
-    axios({
-    method: "get",
-    url: `https://api.github.com/users/${username}`,
-    })
-    .then((res) => {
-        setSingleUser(res.data);
-    })
-    .then(() => {
-        setFoundUser(true);
-    })
-    .catch((error) => {
-        if (error.response.status === 404) {
+const searchUsers = async () => {
+    const headers = {
+      Authorization: `Token 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`,
+    };
+    const url = `https://api.github.com/users/${username}`;
+    const response = await fetch(url, {
+      method: "GET",
+      headers: headers,
+    });
+    const res = await response.json()
+    console.log(res)
+    setSingleUser(res)
+    setFoundUser(true);
+    if (res.message === 'Not Found') {
         toast.error("USER NOT FOUND", {
             position: "top-center",
             autoClose: 5000,
@@ -29,7 +29,6 @@ const searchUsers = () => {
             theme: "light",
         });
         }
-    });
     };
     
     const handleSubmit = (e) => {

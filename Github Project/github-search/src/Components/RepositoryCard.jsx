@@ -16,7 +16,7 @@ const RepositoryCard = ({ repo, showRepos }) => {
   if (!hasFetched) {
     getLanguages(repo);
   }
-  console.log(repo)
+
   return (
     <>
       {showRepos && (
@@ -28,20 +28,22 @@ const RepositoryCard = ({ repo, showRepos }) => {
               <h2 id="cardItem" className="text-[#738094] mt-5">
                 Owner: {repo?.owner?.login}
               </h2>
-              {repo.private ? (
-                <p id="cardItem-bubbles" className="bg-rose-400 py-1 px-2 text-xs text-white shadow rounded-lg inline block">
-                  Private
-                </p>
-              ) : (
-                <p id="cardItem-bubbles" className="bg-emerald-400 py-1 px-3 text-s text-white shadow rounded-lg inline block">
-                  Public
-                </p>
-              )}
-              {keys?.map((key) => (
-                <p id="cardItem-bubbles" className="bg-emerald-400 py-1 px-2 text-s text-white shadow rounded-lg inline block">
-                  {key}
-                </p>
-              ))}
+              <div id='bubbles-container'>
+                {repo.private ? (
+                  <p id="cardItem-bubbles" className="bg-rose-400 py-1 px-2 text-xs text-white shadow rounded-lg">
+                    Private
+                  </p>
+                ) : (
+                  <p id="cardItem-bubbles" className="bg-emerald-400 py-1 px-3 text-s text-white shadow rounded-lg">
+                    Public
+                  </p>
+                )}
+                {keys?.map((key) => (
+                  <p id="cardItem-bubbles" className="bg-emerald-400 py-1 px-2 text-s text-white shadow rounded-lg">
+                    {key}
+                  </p>
+                ))}
+              </div>
               <p id="cardItem" className="text-m text-white">
                 {repo.description}
               </p>

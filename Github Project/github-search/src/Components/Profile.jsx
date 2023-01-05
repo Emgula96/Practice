@@ -1,28 +1,56 @@
-import axios from "axios";
-import { useEffect } from "react";
-import '../CSS/profile.css'
+// import { useEffect } from "react";
+import "../CSS/profile.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+// import { useState } from "react";
 const Profile = ({ singleUser, setRepos, username, foundUser, showRepos, setShowrepos, page, setPage }) => {
-  
-  useEffect(() => {
-    console.log('useEffect triggered')
-    const searchRepos = () => {
-      axios({
-        method: "get",
-        url: `https://api.github.com/users/${username}/repos?page=${page}&per_page=6&sort=updated`,
-      }).then((res) => {
-        setRepos(res.data);
-      });
+  // const [urls, setUrls] = useState([]);
+
+  // useEffect(() => {
+  //   console.log('useEffect triggered')
+  //   const searchRepos = async () => {
+  //       const headers = {
+  //         Authorization: `Token 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`,
+  //       };
+  //       const url = `https://api.github.com/users/${username}/repos?${page}&per_page=10&sort=updated`;
+  //       const response = await fetch(url, {
+  //         method: "GET",
+  //         headers: headers,
+  //       });
+  //       const result = await response.json();
+  //       console.log(result);
+  //     };
+  //     searchRepos();
+  // }, [page, setRepos])
+
+  const searchRepos = async () => {
+    const headers = {
+      Authorization: `Token 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`,
+    };
+    const url = `https://api.github.com/users/${username}/repos?${page}&per_page=10&sort=updated`;
+    const response = await fetch(url, {
+      method: "GET",
+      headers: headers,
+    });
+    const result = await response.json();
+    let listOfUrls = [];
+    for (let fetchedRepo of result) {
+      listOfUrls.push(fetchedRepo.languages_url);
     }
-    searchRepos()
-  }, [page])
-  
+    const languages = [];
+    for (let url of listOfUrls) {
+      const language = await fetch(url);
+      const jsonData = language.json();
+      languages.push(jsonData);
+    }
+    console.log(await Promise.all(languages));
+    setRepos(result);
+  };
+
   const handleShowRepos = (e) => {
     e.preventDefault();
-    // searchRepos();
-    setShowrepos(!showRepos)
+    searchRepos();
+    setShowrepos(!showRepos);
   };
   const incrementPage = () => {
     if (page) {
@@ -34,8 +62,7 @@ const Profile = ({ singleUser, setRepos, username, foundUser, showRepos, setShow
     if (page > 1) {
       setPage(page - 1);
       console.log(page);
-    }
-    else { 
+    } else {
       toast.error("On page 1", {
         position: "top-center",
         autoClose: 5000,
@@ -48,7 +75,7 @@ const Profile = ({ singleUser, setRepos, username, foundUser, showRepos, setShow
       });
     }
   };
-  
+
   return (
     <>
       <ToastContainer position="top-center" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="light" />
@@ -81,12 +108,16 @@ const Profile = ({ singleUser, setRepos, username, foundUser, showRepos, setShow
       )}
       {showRepos && (
         <div>
-          <p onClick={incrementPage}>Next Page</p>
-          <p onClick={decrementPage}>Prev Page</p>
+          <p className="text-white" onClick={decrementPage}>
+            Prev Page
+          </p>
+          <p className="text-white" onClick={incrementPage}>
+            Next Page
+          </p>
         </div>
       )}
     </>
   );
-}
+};
 
-export default Profile
+export default Profile;
