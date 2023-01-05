@@ -1,5 +1,5 @@
 import './CSS/App.css';
-import { useState, useEffect } from 'react';
+import { useState} from 'react';
 import RepositoryCard from './Components/RepositoryCard';
 import Profile from './Components/Profile';
 import "react-toastify/dist/ReactToastify.css";

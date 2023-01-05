@@ -19,7 +19,7 @@ const searchUsers = async () => {
         setSingleUser(res)
         setFoundUser(true);
     }
-    if (res.message === 'Not Found') {
+    else if (res.message === 'Not Found') {
         toast.error("USER NOT FOUND", {
             position: "top-center",
             autoClose: 5000,

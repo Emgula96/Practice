@@ -1,4 +1,4 @@
-// import { useEffect } from "react";
+import { useEffect } from "react";
 import "../CSS/profile.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -6,45 +6,29 @@ import "react-toastify/dist/ReactToastify.css";
 const Profile = ({ singleUser, setRepos, username, foundUser, showRepos, setShowrepos, page, setPage }) => {
   // const [urls, setUrls] = useState([]);
 
-  // useEffect(() => {
-  //   console.log('useEffect triggered')
-  //   const searchRepos = async () => {
-  //       const headers = {
-  //         Authorization: `Token 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`,
-  //       };
-  //       const url = `https://api.github.com/users/${username}/repos?${page}&per_page=10&sort=updated`;
-  //       const response = await fetch(url, {
-  //         method: "GET",
-  //         headers: headers,
-  //       });
-  //       const result = await response.json();
-  //       console.log(result);
-  //     };
-  //     searchRepos();
-  // }, [page, setRepos])
-
+  useEffect(() => {
+    searchRepos()
+  }, [page])
+  
   const searchRepos = async () => {
     const headers = {
       Authorization: `Token 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`,
     };
-    const url = `https://api.github.com/users/${username}/repos?${page}&per_page=10&sort=updated`;
+    const url = `https://api.github.com/users/${username}/repos?page=${page}&per_page=10&sort=updated`;
     const response = await fetch(url, {
       method: "GET",
       headers: headers,
     });
     const result = await response.json();
-    let listOfUrls = [];
-    for (let fetchedRepo of result) {
-      listOfUrls.push(fetchedRepo.languages_url);
-    }
-    const languages = [];
-    for (let url of listOfUrls) {
+    const listOfUrls = result.map(fetchedRepo => fetchedRepo.languages_url);
+    const languages = await Promise.all(listOfUrls.map(async url => {
       const language = await fetch(url);
-      const jsonData = language.json();
-      languages.push(jsonData);
-    }
-    console.log(await Promise.all(languages));
+      return language.json();
+    }));
+    
+    console.log(languages);
     setRepos(result);
+    console.log(result)
   };
 
   const handleShowRepos = (e) => {
