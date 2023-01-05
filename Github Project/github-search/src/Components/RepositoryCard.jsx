@@ -8,7 +8,6 @@ const RepositoryCard = ({ repo, showRepos }) => {
   const getLanguages = async (repo) => {
     const data = await fetch(`${repo.languages_url}`);
     const usableData = await data.json();
-    console.log(usableData);
     const listOfkeys = Object.keys(usableData);
     setKeys(listOfkeys);
     setHasFetched(true);
@@ -17,24 +16,42 @@ const RepositoryCard = ({ repo, showRepos }) => {
   if (!hasFetched) {
     getLanguages(repo);
   }
-
+  console.log(repo)
   return (
     <>
-      {showRepos === true && (
-        <article id='repoCard'className="w-5/6 p-5 bg-[#293449] rounded-lg shadow shadow-gray-300">
-          <img className="w-20 h-20 rounded-full shadow" src={repo?.owner?.avatar_url} alt={repo?.owner?.login}></img>
-          <h2 className="text-[#738094]">Owner: {repo?.owner?.login}</h2>
-          <h1 className="text-white text-3xl font-bold">{repo?.name}</h1>
-          {repo.private ? (
-            <p className="bg-rose-400 py-1 px-2 text-xs text-white shadow rounded-lg inline block">Private</p>
-          ) : (
-            <p className="bg-emerald-400 py-1 px-2 text-xs text-white shadow rounded-lg inline block">Public</p>
-          )}
-          {keys?.map((key) => (
-            <p className="bg-emerald-400 py-1 px-2 text-xs text-white shadow rounded-lg inline block">{key}</p>
-          ))}
-          <p>{repo.description}</p>
-          <a href={repo.url}>View Repo</a>
+      {showRepos && (
+        <article id="repoCard" className="w-5/6 p-5 bg-[#293449] rounded-lg shadow shadow-gray-300">
+          <div id="articleContainer">
+            <div id="top-of-repo-card">
+              {/* <img className="w-20 h-20 rounded-full shadow" src={repo?.owner?.avatar_url} alt={repo?.owner?.login}></img> */}
+              <h1 className="text-white text-3xl font-bold mt-5">{repo?.name}</h1>
+              <h2 id="cardItem" className="text-[#738094] mt-5">
+                Owner: {repo?.owner?.login}
+              </h2>
+              {repo.private ? (
+                <p id="cardItem-bubbles" className="bg-rose-400 py-1 px-2 text-xs text-white shadow rounded-lg inline block">
+                  Private
+                </p>
+              ) : (
+                <p id="cardItem-bubbles" className="bg-emerald-400 py-1 px-3 text-s text-white shadow rounded-lg inline block">
+                  Public
+                </p>
+              )}
+              {keys?.map((key) => (
+                <p id="cardItem-bubbles" className="bg-emerald-400 py-1 px-2 text-s text-white shadow rounded-lg inline block">
+                  {key}
+                </p>
+              ))}
+              <p id="cardItem" className="text-m text-white">
+                {repo.description}
+              </p>
+            </div>
+            <div id="bottom-of-repo-card">
+              <a id="cardItem" className="text-[#0CA5E9] underline" target="_blank" rel="noopener noreferrer" href={repo.svn_url}>
+                Link to Repo
+              </a>
+            </div>
+          </div>
         </article>
       )}
     </>
