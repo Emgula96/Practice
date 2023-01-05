@@ -29,11 +29,6 @@ const TitTacToe = () => {
         };
         for (let combo in combos) {
             combos[combo].forEach((pattern) => {
-                console.log(squares[pattern[0]])
-                console.log(squares[pattern[1]])
-                console.log(squares[pattern[2]])
-                console.log(combo)
-                console.log(combos)
                 if (
                     squares[pattern[0]] === '' ||
                     squares[pattern[1]] === '' ||

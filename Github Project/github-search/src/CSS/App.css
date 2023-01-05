@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body{
+    background: #0F172A;
+}
+#top-container{
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+    padding:10px
+}
+#repoCard{
+    height: 280px;
+}
+.results-container{
+    margin: 10px 100px
+}
+@media(max-width: 850px) {
+    .results-container{
+    margin: 10px 40px
+}
+    #repoCards{
+        display: flex;
+        flex-direction: column;
+    }
+    #top-container{
+        height: 900px;
+    }
+    #bottomOfCard{
+        margin-top: 15px
+    }
+    span{
+        margin-top: 10px
+    }
+}
