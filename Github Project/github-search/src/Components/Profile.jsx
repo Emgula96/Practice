@@ -10,7 +10,7 @@ const Profile = ({ singleUser, setRepos, username, foundUser, showRepos, setShow
   
   const searchRepos = async () => {
     const headers = {
-      Authorization: ``,
+      Authorization: `Token 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`,
     };
     const url = `https://api.github.com/users/${username}/repos?page=${page}&per_page=10&sort=updated`;
     const response = await fetch(url, {
@@ -82,10 +82,10 @@ const Profile = ({ singleUser, setRepos, username, foundUser, showRepos, setShow
       )}
       {showRepos && (
         <div>
-          <p className="text-white text-underline" onClick={decrementPage}>
+          <p className="text-white underline" onClick={decrementPage}>
             Prev Page
           </p>
-          <p className="text-white text-underline" onClick={incrementPage}>
+          <p className="text-white underline" onClick={incrementPage}>
             Next Page
           </p>
         </div>
