@@ -6,7 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 const SearchBar = ({setRepos,setPage,username,setShowrepos,setFoundUser, setSingleUser, setusername}) => {
 const searchUsers = async () => {
     const headers = {
-      Authorization: `Token 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`,
+      Authorization: ``,
     };
     const url = `https://api.github.com/users/${username}`;
     const response = await fetch(url, {
