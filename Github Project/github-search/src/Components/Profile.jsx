@@ -2,9 +2,7 @@ import { useEffect } from "react";
 import "../CSS/profile.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-// import { useState } from "react";
 const Profile = ({ singleUser, setRepos, username, foundUser, showRepos, setShowrepos, page, setPage }) => {
-  // const [urls, setUrls] = useState([]);
 
   useEffect(() => {
     searchRepos()
@@ -20,15 +18,7 @@ const Profile = ({ singleUser, setRepos, username, foundUser, showRepos, setShow
       headers: headers,
     });
     const result = await response.json();
-    const listOfUrls = result.map(fetchedRepo => fetchedRepo.languages_url);
-    const languages = await Promise.all(listOfUrls.map(async url => {
-      const language = await fetch(url);
-      return language.json();
-    }));
-    
-    console.log(languages);
     setRepos(result);
-    console.log(result)
   };
 
   const handleShowRepos = (e) => {
