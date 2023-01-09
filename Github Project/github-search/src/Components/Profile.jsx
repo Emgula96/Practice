@@ -10,7 +10,7 @@ const Profile = ({ singleUser, setRepos, username, foundUser, showRepos, setShow
   
   const searchRepos = async () => {
     const headers = {
-      Authorization: `Token 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`,
+      Authorization: ``,
     };
     const url = `https://api.github.com/users/${username}/repos?page=${page}&per_page=10&sort=updated`;
     const response = await fetch(url, {
