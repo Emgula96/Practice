@@ -1,27 +1,35 @@
-import React from 'react'
-import { useState } from 'react'
-import DisplayArea from './DisplayArea'
+import React, { useState } from "react";
+
 const InputField = () => {
+  const [text, setText] = useState("");
+  const [letterCounts, setLetterCounts] = useState({});
 
-    const [word, setWord] = useState('')
-    let wordToCount = word
-    console.log(word)
-    bank = {}
-    const counterFunction = (word) => {
-        for (let i = 0; i < word.length; i++){
-            const ch = string[i];
-            bank[ch] = 0
-        }
-        bank[ch]++
+  const handleTextChange = (event) => {
+    setText(event.target.value);
+  };
+
+  const handleButtonClick = () => {
+    const counts = {};
+    for (let i = 0; i < text.length; i++) {
+      const letter = text[i].toLowerCase();
+      if (letter >= "a" && letter <= "z") {
+        counts[letter] = counts[letter] ? counts[letter] + 1 : 1;
+      }
     }
-    
-    return (
-    <>
-            <input className='string-input' onChange={(e) => setWord(e.target.value)} placeholder='Enter your word'></input>
-            <button className='Enter-btn'>Enter</button>
-            <DisplayArea count={wordToCount} />
-    </>
-  )
-}
+    setLetterCounts(counts);
+  };
 
-export default InputField
+  return (
+    <div>
+      <textarea onChange={handleTextChange} />
+      <button onClick={handleButtonClick}>Count letters</button>
+      {Object.keys(letterCounts).map((letter) => (
+        <div key={letter}>
+          {letter}: {letterCounts[letter]}
+        </div>
+      ))}
+    </div>
+  );
+};
+
+export default InputField;
