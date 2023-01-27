@@ -4,7 +4,6 @@ type LetterCounts = {
   [letter: string]: number;
 };
 
-
 const Input = () => {
   const [userText, setUserText] = useState<string>("");
   const [letterCounts, setLetterCounts] = useState<LetterCounts>({});
@@ -13,11 +12,11 @@ const Input = () => {
   const [nonAlphaChars, setNonAlphaChars] = useState<string[]>([]);
 
   const alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
-  
+
   const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setUserText(e.target.value);
   };
-  
+
   const handleAnalyzeButton = () => {
     const counts: LetterCounts = {};
     const nonAlphaChars: string[] = [];
@@ -26,8 +25,7 @@ const Input = () => {
       const letter = lowerCaseText[i];
       if (letter >= "a" && letter <= "z") {
         counts[letter] = counts[letter] ? counts[letter] + 1 : 1;
-      } else if (!letter.match(/[a-z]/i))
-        if (!nonAlphaChars.includes(letter)) nonAlphaChars.push(letter);
+      } else if (!letter.match(/[a-z]/i)) if (!nonAlphaChars.includes(letter)) nonAlphaChars.push(letter);
     }
     setLetterCounts(counts);
     setSearchedWord(userText);
@@ -37,7 +35,7 @@ const Input = () => {
     setLetterCounts({});
     setUserText("");
     setSearchedWord("");
-    setNonAlphaChars([])
+    setNonAlphaChars([]);
   };
 
   const handleShowFullCountClick = () => {
@@ -48,26 +46,40 @@ const Input = () => {
     <div className="flex h-screen w-screen justify-center items-center">
       <div className="bg-gray-200 p-4 rounded-md">
         <h1 className="text-xl font-bold text-center mb-20">Alphabet Counter</h1>
-        <textarea onChange={handleTextChange} value={userText} className="w-full p-2 rounded-lg bg-white" />
-        <button onClick={handleAnalyzeButton} type="submit" className="ml-5 mt-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg" disabled={userText === ""}>
-          Analyze text
+        <textarea
+          onChange={handleTextChange}
+          value={userText}
+          className="w-full p-2 rounded-lg bg-white" />
+        <button
+          onClick={handleAnalyzeButton}
+          type="submit"
+          className="ml-5 mt-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg"
+          disabled={userText === ""}>
+          Submit
         </button>
-        <button onClick={handleClearButton} className="ml-5 mt-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg">
+        <button
+          onClick={handleClearButton}
+          className="ml-5 mt-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg">
           Clear Results
         </button>
-        <button onClick={handleShowFullCountClick} className="ml-5 mt-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg" disabled={Object.keys(letterCounts).length === 0}>
-          Show full count
+        <button onClick={handleShowFullCountClick}
+          className="ml-5 mt-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg"
+          disabled={Object.keys(letterCounts).length === 0}>
+          Show Full Count
         </button>
-        <div className="mt-4">
-          {searchedWord !== "" && <h2>Showing results for "{searchedWord}"</h2>}
+        <div className="mt-5">
+          {searchedWord !== "" &&
+            <h2 className="text-xl font-bold text-center ">Showing results for "{searchedWord}"</h2>}
           {(showFullCount ? alphabet : Object.keys(letterCounts).sort()).map((letter) => (
-            <div key={letter} className="inline-block p-2 rounded-lg mr-2">
+            <div key={letter}
+              className="flex flex-col p-2 rounded-lg mr-2">
               {letter}: {letterCounts[letter] || 0}
             </div>
           ))}
         </div>
         <div>
-          {nonAlphaChars.length > 0 && <h2>Non-Alphabet Characters that appear:</h2>}
+          {nonAlphaChars.length > 0 &&
+            <h2 className="text-xl font-bold text-center ">Non-Alphabet Characters that appear:</h2>}
           {nonAlphaChars.map((nonAlpha) => (
             <div key={nonAlpha} className="inline-block p-2 rounded-lg mr-2">
               {nonAlpha}
